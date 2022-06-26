@@ -59,7 +59,9 @@ def add_staff(request):
             passport_url = fs.url(filename)
             try:
                 user = CustomUser.objects.create_user(
-                    email=email, password=password, user_type=2, first_name=first_name, last_name=last_name, profile_pic=passport_url)
+                    email=email, password=password, user_type=2,
+                    first_name=first_name, last_name=last_name,
+                    profile_pic=passport_url)
                 user.gender = gender
                 user.address = address
                 user.staff.course = course
@@ -94,7 +96,9 @@ def add_student(request):
             passport_url = fs.url(filename)
             try:
                 user = CustomUser.objects.create_user(
-                    email=email, password=password, user_type=3, first_name=first_name, last_name=last_name, profile_pic=passport_url)
+                    email=email, password=password, user_type=3,
+                    first_name=first_name, last_name=last_name,
+                    profile_pic=passport_url)
                 user.gender = gender
                 user.address = address
                 user.student.session = session
@@ -290,7 +294,8 @@ def edit_student(request, student_id):
         else:
             messages.error(request, "Please Fill Form Properly!")
     else:
-        return render(request, "hod_template/edit_student_template.html", context)
+        return render(request,
+            "hod_template/edit_student_template.html", context)
 
 
 def edit_course(request, course_id):

@@ -1,5 +1,5 @@
 from django import forms
-from django.forms.widgets import DateInput, TextInput
+from django.forms.widgets import DateInput
 
 from .models import *
 
@@ -7,7 +7,6 @@ from .models import *
 class FormSettings(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FormSettings, self).__init__(*args, **kwargs)
-        # Here make some changes such as:
         for field in self.visible_fields():
             field.field.widget.attrs['class'] = 'form-control'
 
@@ -46,13 +45,15 @@ class CustomUserForm(FormSettings):
                 id=self.instance.pk).admin.email.lower()
             if dbEmail != formEmail:  # There has been changes
                 if CustomUser.objects.filter(email=formEmail).exists():
-                    raise forms.ValidationError("The given email is already registered")
+                    raise forms.ValidationError(
+                        "The given email is already registered")
 
         return formEmail
 
     class Meta:
         model = CustomUser
-        fields = ['first_name', 'last_name', 'email', 'gender',  'password','profile_pic', 'address' ]
+        fields = ['first_name', 'last_name', 'email',
+                  'gender', 'password', 'profile_pic', 'address']
 
 
 class StudentForm(CustomUserForm):
@@ -81,7 +82,7 @@ class StaffForm(CustomUserForm):
     class Meta(CustomUserForm.Meta):
         model = Staff
         fields = CustomUserForm.Meta.fields + \
-            ['course' ]
+            ['course']
 
 
 class CourseForm(FormSettings):
@@ -166,7 +167,7 @@ class StudentEditForm(CustomUserForm):
 
     class Meta(CustomUserForm.Meta):
         model = Student
-        fields = CustomUserForm.Meta.fields 
+        fields = CustomUserForm.Meta.fields
 
 
 class StaffEditForm(CustomUserForm):
