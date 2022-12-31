@@ -170,8 +170,20 @@ class StudentResult(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     test = models.FloatField(default=0)
     exam = models.FloatField(default=0)
+    # assignment = models.FloatField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+# class OnlineClassRoom(models.Model):
+#     room_name = models.CharField(max_length=255)
+#     room_pwd = models.CharField(max_length=255)
+#     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+#     session_years = models.ForeignKey(
+#         Session, on_delete=models.CASCADE)
+#     started_by = models.ForeignKey(Staff, on_delete=models.CASCADE)
+#     is_active = models.BooleanField(default=True)
+#     created_on = models.DateTimeField(auto_now_add=True)
 
 
 @receiver(post_save, sender=CustomUser)
