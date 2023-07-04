@@ -44,8 +44,8 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     user_type = models.CharField(default=1, choices=USER_TYPE, max_length=1)
     gender = models.CharField(max_length=1, choices=GENDER)
-    profile_pic = models.ImageField()
-    address = models.TextField()
+    profile_pic = models.ImageField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
     fcm_token = models.TextField(default="")  # For firebase notifications
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -82,8 +82,6 @@ class Student(models.Model):
 
 
 class Staff(models.Model):
-    course = models.ForeignKey(
-        Course, on_delete=models.DO_NOTHING, null=True, blank=False)
     admin = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):

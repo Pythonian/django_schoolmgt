@@ -88,7 +88,6 @@ def add_student(request):
             email = student_form.cleaned_data.get('email')
             gender = student_form.cleaned_data.get('gender')
             password = student_form.cleaned_data.get('password')
-            course = student_form.cleaned_data.get('course')
             session = student_form.cleaned_data.get('session')
             passport = request.FILES['profile_pic']
             fs = FileSystemStorage()
@@ -102,7 +101,6 @@ def add_student(request):
                 user.gender = gender
                 user.address = address
                 user.student.session = session
-                user.student.course = course
                 user.save()
                 messages.success(request, "Successfully Added")
                 return redirect(reverse('add_student'))
@@ -117,7 +115,7 @@ def add_course(request):
     form = CourseForm(request.POST or None)
     context = {
         'form': form,
-        'page_title': 'Add Course'
+        'page_title': 'Add Level'
     }
     if request.method == 'POST':
         if form.is_valid():
@@ -167,7 +165,7 @@ def manage_staff(request):
     allStaff = CustomUser.objects.filter(user_type=2)
     context = {
         'allStaff': allStaff,
-        'page_title': 'Manage Staff'
+        'page_title': 'Manage Teachers'
     }
     return render(request, "hod_template/manage_staff.html", context)
 
@@ -176,7 +174,7 @@ def manage_student(request):
     students = CustomUser.objects.filter(user_type=3)
     context = {
         'students': students,
-        'page_title': 'Manage Students'
+        'page_title': 'Manage Pupils'
     }
     return render(request, "hod_template/manage_student.html", context)
 
@@ -185,7 +183,7 @@ def manage_course(request):
     courses = Course.objects.all()
     context = {
         'courses': courses,
-        'page_title': 'Manage Courses'
+        'page_title': 'Manage Levels'
     }
     return render(request, "hod_template/manage_course.html", context)
 
@@ -205,7 +203,7 @@ def edit_staff(request, staff_id):
     context = {
         'form': form,
         'staff_id': staff_id,
-        'page_title': 'Edit Staff'
+        'page_title': 'Edit Teacher'
     }
     if request.method == 'POST':
         if form.is_valid():
@@ -216,7 +214,6 @@ def edit_staff(request, staff_id):
             email = form.cleaned_data.get('email')
             gender = form.cleaned_data.get('gender')
             password = form.cleaned_data.get('password') or None
-            course = form.cleaned_data.get('course')
             passport = request.FILES.get('profile_pic') or None
             try:
                 user = CustomUser.objects.get(id=staff.admin.id)
@@ -233,7 +230,6 @@ def edit_staff(request, staff_id):
                 user.last_name = last_name
                 user.gender = gender
                 user.address = address
-                staff.course = course
                 user.save()
                 staff.save()
                 messages.success(request, "Successfully Updated")
@@ -254,7 +250,7 @@ def edit_student(request, student_id):
     context = {
         'form': form,
         'student_id': student_id,
-        'page_title': 'Edit Student'
+        'page_title': 'Edit Pupil'
     }
     if request.method == 'POST':
         if form.is_valid():
@@ -304,7 +300,7 @@ def edit_course(request, course_id):
     context = {
         'form': form,
         'course_id': course_id,
-        'page_title': 'Edit Course'
+        'page_title': 'Edit Level'
     }
     if request.method == 'POST':
         if form.is_valid():

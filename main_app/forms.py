@@ -81,8 +81,7 @@ class StaffForm(CustomUserForm):
 
     class Meta(CustomUserForm.Meta):
         model = Staff
-        fields = CustomUserForm.Meta.fields + \
-            ['course']
+        fields = ["first_name", "last_name", "email", "gender", "password"]
 
 
 class CourseForm(FormSettings):
