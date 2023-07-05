@@ -15,7 +15,7 @@
                         <p>Total Students</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-bag"></i>
+                        <i class="fas fa-users"></i>
                     </div>
                    
                 </div>
@@ -36,8 +36,7 @@
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
+            <!-- <div class="col-lg-3 col-6">
                 <div class="small-box bg-warning">
                     <div class="inner">
                         <h3>{{total_leave}}</h3>
@@ -49,7 +48,7 @@
                     </div>
                    
                 </div>
-            </div>
+            </div> -->
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->
@@ -119,10 +118,10 @@
   <script>
       $(document).ready(function(){
         var donutData        = {
-            labels: ['Attendance', 'Leave'],
+            labels: ['Attendance', 'Pupils'],
             datasets: [
               {
-                data:[{{total_attendance}}, {{total_leave}}],
+                data:[{{total_attendance}}, {{total_students}}],
                 backgroundColor : ['#00a65a', '#f39c12',],
               }
             ]

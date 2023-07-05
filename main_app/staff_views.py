@@ -14,7 +14,8 @@ from .models import *
 
 def staff_home(request):
     staff = get_object_or_404(Staff, admin=request.user)
-    total_students = Student.objects.filter(course=staff.course).count()
+    total_students = Student.objects.all().count()
+    # total_students = Student.objects.filter(course=staff.course).count()
     total_leave = LeaveReportStaff.objects.filter(staff=staff).count()
     subjects = Subject.objects.filter(staff=staff)
     total_subject = subjects.count()
@@ -27,7 +28,8 @@ def staff_home(request):
         subject_list.append(subject.name)
         attendance_list.append(attendance_count)
     context = {
-        'page_title': 'Staff Panel - ' + str(staff.admin.last_name) + ' (' + str(staff.course) + ')',
+        'page_title': 'Teacher Panel - ' + str(staff.admin.last_name),
+        # 'page_title': 'Staff Panel - ' + str(staff.admin.last_name) + ' (' + str(staff.course) + ')',
         'total_students': total_students,
         'total_attendance': total_attendance,
         'total_leave': total_leave,

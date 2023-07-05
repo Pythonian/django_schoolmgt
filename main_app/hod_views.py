@@ -409,7 +409,7 @@ def student_feedback_message(request):
         feedbacks = FeedbackStudent.objects.all()
         context = {
             'feedbacks': feedbacks,
-            'page_title': 'Student Feedback Messages'
+            'page_title': 'Pupil Feedback Messages'
         }
         return render(request, 'hod_template/student_feedback_template.html', context)
     else:
@@ -430,7 +430,7 @@ def staff_feedback_message(request):
         feedbacks = FeedbackStaff.objects.all()
         context = {
             'feedbacks': feedbacks,
-            'page_title': 'Staff Feedback Messages'
+            'page_title': 'Teacher Feedback Messages'
         }
         return render(request, 'hod_template/staff_feedback_template.html', context)
     else:
@@ -569,7 +569,7 @@ def admin_view_profile(request):
 def admin_notify_staff(request):
     staff = CustomUser.objects.filter(user_type=2)
     context = {
-        'page_title': "Send Notifications To Staff",
+        'page_title': "Send Notifications To Teacher",
         'allStaff': staff
     }
     return render(request, "hod_template/staff_notification.html", context)
@@ -578,7 +578,7 @@ def admin_notify_staff(request):
 def admin_notify_student(request):
     student = CustomUser.objects.filter(user_type=3)
     context = {
-        'page_title': "Send Notifications To Students",
+        'page_title': "Send Notifications To Pupils",
         'students': student
     }
     return render(request, "hod_template/student_notification.html", context)
@@ -593,7 +593,7 @@ def send_student_notification(request):
         url = "https://fcm.googleapis.com/fcm/send"
         body = {
             'notification': {
-                'title': "Student Management System",
+                'title': "Learning Management System",
                 'body': message,
                 'click_action': reverse('student_view_notification'),
                 'icon': static('dist/img/AdminLTELogo.png')
@@ -620,7 +620,7 @@ def send_staff_notification(request):
         url = "https://fcm.googleapis.com/fcm/send"
         body = {
             'notification': {
-                'title': "Student Management System",
+                'title': "Learning Management System",
                 'body': message,
                 'click_action': reverse('staff_view_notification'),
                 'icon': static('dist/img/AdminLTELogo.png')
@@ -641,14 +641,14 @@ def send_staff_notification(request):
 def delete_staff(request, staff_id):
     staff = get_object_or_404(CustomUser, staff__id=staff_id)
     staff.delete()
-    messages.success(request, "Staff deleted successfully!")
+    messages.success(request, "Teacher deleted successfully!")
     return redirect(reverse('manage_staff'))
 
 
 def delete_student(request, student_id):
     student = get_object_or_404(CustomUser, student__id=student_id)
     student.delete()
-    messages.success(request, "Student deleted successfully!")
+    messages.success(request, "Pupil deleted successfully!")
     return redirect(reverse('manage_student'))
 
 
@@ -656,7 +656,7 @@ def delete_course(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     try:
         course.delete()
-        messages.success(request, "Course deleted successfully!")
+        messages.success(request, "Grade Level deleted successfully!")
     except Exception:
         messages.error(
             request, "Sorry, some students are assigned to this course already. Kindly change the affected student course and try again")

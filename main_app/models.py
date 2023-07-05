@@ -45,7 +45,7 @@ class CustomUser(AbstractUser):
     user_type = models.CharField(default=1, choices=USER_TYPE, max_length=1)
     gender = models.CharField(max_length=1, choices=GENDER)
     profile_pic = models.ImageField(blank=True, null=True)
-    address = models.TextField(blank=True, null=True)
+    address = models.CharField(max_length=200, blank=True, null=True)
     fcm_token = models.TextField(default="")  # For firebase notifications
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -90,8 +90,7 @@ class Staff(models.Model):
 
 class Subject(models.Model):
     name = models.CharField(max_length=120)
-    staff = models.ForeignKey(Staff, on_delete=models.CASCADE,)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
